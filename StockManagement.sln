@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement", "StockManagement\StockManagement.csproj", "{BB667ED0-9A33-47CF-80B2-6F89E7362A7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement.Api", "StockManagement.Api\StockManagement.Api.csproj", "{C3D3D229-95E9-4FF4-9169-965573667BC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement.Exceptions", "StockManagement.Exceptions\StockManagement.Exceptions.csproj", "{C4BEE891-7838-4EF7-B32B-A40AF0F64DBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement.Data", "StockManagement.Data\StockManagement.Data.csproj", "{16C58649-5E79-455E-A462-2008B34AC0DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildFiles", "BuildFiles", "{1D691A00-D2A6-4334-8320-803504110BA2}"
+ProjectSection(SolutionItems) = preProject
+	docker-compose.yml = docker-compose.yml
+	stock-management.Dockerfile = stock-management.Dockerfile
+	stock-management-rabbit-mq.Dockerfile = stock-management-rabbit-mq.Dockerfile
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement.Business", "StockManagement.Business\StockManagement.Business.csproj", "{313729DF-5137-4CE9-9CB3-16098853B4F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement.Utility", "StockManagement.Utility\StockManagement.Utility.csproj", "{40BE9FEA-15A1-478D-BF7B-5A894A53DA1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagement.Consumers", "StockManagement.Consumers\StockManagement.Consumers.csproj", "{B5B250D1-BE76-4E47-A1DB-1CBB547A1CB7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB667ED0-9A33-47CF-80B2-6F89E7362A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB667ED0-9A33-47CF-80B2-6F89E7362A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB667ED0-9A33-47CF-80B2-6F89E7362A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB667ED0-9A33-47CF-80B2-6F89E7362A7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D3D229-95E9-4FF4-9169-965573667BC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D3D229-95E9-4FF4-9169-965573667BC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D3D229-95E9-4FF4-9169-965573667BC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D3D229-95E9-4FF4-9169-965573667BC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4BEE891-7838-4EF7-B32B-A40AF0F64DBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4BEE891-7838-4EF7-B32B-A40AF0F64DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4BEE891-7838-4EF7-B32B-A40AF0F64DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4BEE891-7838-4EF7-B32B-A40AF0F64DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16C58649-5E79-455E-A462-2008B34AC0DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16C58649-5E79-455E-A462-2008B34AC0DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16C58649-5E79-455E-A462-2008B34AC0DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16C58649-5E79-455E-A462-2008B34AC0DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{313729DF-5137-4CE9-9CB3-16098853B4F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{313729DF-5137-4CE9-9CB3-16098853B4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{313729DF-5137-4CE9-9CB3-16098853B4F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{313729DF-5137-4CE9-9CB3-16098853B4F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40BE9FEA-15A1-478D-BF7B-5A894A53DA1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40BE9FEA-15A1-478D-BF7B-5A894A53DA1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40BE9FEA-15A1-478D-BF7B-5A894A53DA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40BE9FEA-15A1-478D-BF7B-5A894A53DA1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5B250D1-BE76-4E47-A1DB-1CBB547A1CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5B250D1-BE76-4E47-A1DB-1CBB547A1CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5B250D1-BE76-4E47-A1DB-1CBB547A1CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5B250D1-BE76-4E47-A1DB-1CBB547A1CB7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

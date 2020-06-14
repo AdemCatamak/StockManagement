@@ -1,0 +1,37 @@
+version: "3.4"
+
+services:
+
+  stock-management-app:
+    image: stock-management:latest
+    build:
+      context: ./
+      dockerfile: stock-management.Dockerfile
+    ports:
+      - 2020:80
+    depends_on:
+      - stock-management-sql-server
+      - stock-management-rabbit-mq
+    links:
+      - stock-management-sql-server
+      - stock-management-rabbit-mq
+
+  stock-management-sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Passw0rd"
+    expose:
+      - 1433
+    ports:
+      - 2021:1433
+
+  stock-management-rabbit-mq:
+    build:
+      context: ./
+      dockerfile: stock-management-rabbit-mq.Dockerfile
+    expose:
+      - 15672
+      - 5672
+    ports:
+      - 2022:15672

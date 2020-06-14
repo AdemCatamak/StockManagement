@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\StockManagement.Data\StockManagement.Data.csproj" />
+      <ProjectReference Include="..\StockManagement.Exceptions\StockManagement.Exceptions.csproj" />
+      <ProjectReference Include="..\StockManagement.Utility\StockManagement.Utility.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="8.0.0" />
+    </ItemGroup>
+
+</Project>
