@@ -172,12 +172,42 @@ namespace StockManagement
 
             #endregion
 
+            #region Mediatr
+
+            services.AddMediatR(allAssemblyList.ToArray());
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionalBehavior<,>));
+
+            #endregion
+
+            #region DistributedLock
+
+            DistributedLockOption distributedLockOption = AppConfigs.SelectedDistributedLockOption();
+            services.AddSingleton(distributedLockOption);
+
+            IDistributedLockManager distributedLockManager = distributedLockOption.DistributedLockType switch
+                                                             {
+                                                                 DistributedLockTypes.SqlServer => new SqlServerDistributedLockManager(distributedLockOption.ConnectionStr),
+                                                                 _ => throw new ArgumentOutOfRangeException()
+                                                             };
+
+            services.AddSingleton(distributedLockManager);
+
+            #endregion
+
+            #region IntegrationEventHandler
+
+            services.AddScoped<IIntegrationEventHandler, IntegrationEventHandler>();
+
+            #endregion
+            
             #region HealthCheck
 
             IHealthChecksBuilder healthChecksBuilder = services.AddHealthChecks();
 
             healthChecksBuilder.AddUrlGroup(new Uri($"{AppConfigs.AppUrls().First()}/health-check"), HttpMethod.Get, name: "HealthCheck Endpoint");
 
+            healthChecksBuilder.AddSqlServer(distributedLockOption.ConnectionStr, name: "Sql Server - Distributed Lock");
+            
             switch (dbOption.DbType)
             {
                 case DbTypes.SqlServer:
@@ -204,34 +234,6 @@ namespace StockManagement
                                       setup.AddHealthCheckEndpoint("StockManagement Project", $"{AppConfigs.AppUrls().First()}/healthz");
                                   })
                .AddInMemoryStorage();
-
-            #endregion
-
-            #region Mediatr
-
-            services.AddMediatR(allAssemblyList.ToArray());
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionalBehavior<,>));
-
-            #endregion
-
-            #region DistributedLock
-
-            DistributedLockOption distributedLockOption = AppConfigs.SelectedDistributedLockOption();
-            services.AddSingleton(distributedLockOption);
-
-            IDistributedLockManager distributedLockManager = distributedLockOption.DistributedLockType switch
-                                                             {
-                                                                 DistributedLockTypes.SqlServer => new SqlServerDistributedLockManager(distributedLockOption.ConnectionStr),
-                                                                 _ => throw new ArgumentOutOfRangeException()
-                                                             };
-
-            services.AddSingleton(distributedLockManager);
-
-            #endregion
-
-            #region IntegrationEventHandler
-
-            services.AddScoped<IIntegrationEventHandler, IntegrationEventHandler>();
 
             #endregion
         }
