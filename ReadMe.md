@@ -1,53 +1,55 @@
 
 # Stock Management
 
-Ürünler için stok yönetimini yapmak amacıyla tasarlanmıştır. Aşağıdaki kullanım senaryolarına yanıt vermektedir.
+This project is designed for managing stock operations for products. Project's use-cases are listed below:
 
-- Yeni ürün oluşturmak
-- Ürünün stokta yer alan sayısını arttırmak
-- Ürünün srokta yer alan sayısını azaltmak
-- Ürünü stoktan kaldırmak
+- Adding a new product to stock
+- Increasing the amount of a certain product in stock
+- Decreasing the amount of a certain product in stock
+- Reset stock of a certain product
 
-### _Yeni ürün oluşturmak_
+### _Adding a new product to stock_
 
-Bu projede yer alan `ProductModel` sınıfı, var olmayan ProductManagement projesinde yer alan ürünlerin bir yansımasıdır. ProductManagement projesinde bir ürün yaratıldığı zaman atılacak entegrasyon event'i üzerinden StockManagement projesi içerisinde bir ürün yaratılmaktadır. Üretilen ürünler için _InitializeStock_ eylemi veri tabanına kaydedilmekte ardından da `StockSnapShotModel` verisi oluşturulup kaydedilmektedir. Bu işlemlerin ardından `StockSnapShotCreatedIntegrationEvent` sınıfının bir örneği üretilmekte ve sistemin geneline yayınlanmaktadır.
+`ProductModel` class would be reflection of products in the ProductManagement project if ProductManagement project existed. If there exist a ProductManagement project, the StockManagement project would create `ProductModel` by observing `ProductCreatedIntegrationEvent`. In our case, `ProductModel` is created by the user's HTTP request [Post /products]. For every product, _InitializeStock_ action is saved into db. When _InitializeStock_ action is saved into db, `StockSnapShotModel` is also created and saved. When transactional operation is finished successfully, `StockSnapShotCreatedIntegrationEvent` is raised.
 
-`StockSnapShotCreatedIntegrationEvent` entegrasyon eventini izleyenlerden biri StockManagement projesinin ta kendisidir. Bu şekilde `StockModel` verisini oluşturmaktadır. Bu model sadece okuma eylemleri için kullanılacaktır.
+The StockManagement project is one of the observers which observe `StockSnapShotCreatedIntegrationEvent`. The StockManagent project creates `StockModel` for each event. This model is used for only read operations.
 
-### _Ürünün stokta yer alan sayısını arttırmak_
 
-ProductId, stoğa kaç adet ürün ekleneceği ve CorrelationId değeri gerekmektedir. CorrelationId işlemin sadece bir kere yürütülmesini sağlamak için kullanılmaktadır. __AddToStock__ eylemi tamamlandığı zaman `StockCountIncreasedIntegrationEvent` entegrasyon eventi sistem geneline yayınlanır.
+### _Increasing the amount of a certain product in stock_
 
-`StockCountIncreasedIntegrationEvent` eventi StockManagement tarafından takip edilmektedir. Bu şekilde `StockModel` üzerinde yer alan _AvailableStock_ verisi güncellenmektedir.
+ProductId, Count, and CorrelationId values are required to increase the amount of a certain product in stock. CorrelationId is required to ensure that this operation is executed only once. When __AddToStock__ operation is finished successfully, `StockCountIncreasedIntegrationEvent` is raised.
 
-### _Ürünün srokta yer alan sayısını azaltmak_
+`StockModel`'s _AvailableStock_ value will be updated by the StockManagement project when `StockCountIncreasedIntegrationEvent` is observed.
 
-ProductId, stoktan kaç adet ürün çıkarılacağı ve CorrelationId değeri gerekmektedir. CorrelationId işlemin sadece bir kere yürütülmesini sağlamak için kullanılmaktadır. __RemoveFromStock__ eylemi tamamlandığı zaman `StockCountDecreasedIntegrationEvent` entegrasyon eventi sistem geneline yayınlanır.
+### _Decreasing the amount of a certain product in stock_
 
-`StockCountDecreasedIntegrationEvent` eventi StockManagement tarafından takip edilmektedir. Bu şekilde `StockModel` üzerinde yer alan _AvailableStock_ verisi güncellenmektedir.
+ProductId, Count, and CorrelationId values are required to decrease the amount of a certain product in stock. CorrelationId is required to ensure that this operation is executed only once. When __RemoveFromStock__ operation is finished successfully, `StockCountDecreasedIntegrationEvent` is raised.
 
-### _Ürünü stoktan kaldırmak_
+`StockModel`'s _AvailableStock_ value will be updated by the StockManagement project when `StockCountDecreasedIntegrationEvent` is observed.
 
-ProductId ve CorrelationId değeri gerekmektedir. CorrelationId işlemin sadece bir kere yürütülmesini sağlamak için kullanılmaktadır. __ResetStock__ eylemi temel de stoktan ürün çıkarmak ile aynı işlevi görmektedir. Bu sebeple işlemin sonunda `StockCountDecreasedIntegrationEvent` fırlatılmaktadır.
+### _Reset stock of a certain product_
+
+ProductId and CorrelationId values are required to reset stock of a certain product. CorrelationId is required to ensure that this operation is executed only once. __ResetStock__ operation is similar to _RemoveFromStock_ operation. When __ResetStock__ operation is finished successfully, `StockCountDecreasedIntegrationEvent` is raised.
 
 ## __RUN__
 
 __Way 1__
 
-_docker-compose_ üzerinden projeyi çalıştırabilirsiniz. Debug yapabilen bir IDE'ye sahipseniz ana dizinde yer alan _docker-compose.yml_ dosyası işinize yarayacaktır.
+The project could be executed via _docker-compose_. If you have an IDE which is capable of debugging _docker-compose file_, _docker-compose.yml_ whic is located at the main directory would  be useful for you.
 
-Bu şekilde çalıştırmanız durumunda uygulamaya _http://localhost:2020_ üzerinden erişebirsiniz. _http://localhost:2020_ üzerine atılan istek sizi doğrudan swagger ekranına yönlendirecektir.
+In case of choosing this way to run the project, you can reach swagger screen via _http://localhost:2020_.
 
-SqlServer, uygulamadan daha geç ayağa kalktığı için, `docker-compose up` işleminden sonra uygulamaya erişmeniz biraz vakit alabilir. 
+Note: Because the sql server needs more time to be ready compared to StockManager-Api, it might take a while for you to reach the endpoints after `docker-compose up` command execution.
 
 __Way 2__
 
-Docker kullanmadan debug işlemi yapmak istiyorsanız StockManagement/appsettings.json içerisinde yer alan bağlantı bilgilerini düzenlemeniz gerekecektir.
+If you want to execute the project without using docker, it is required that you set the connection strings inside the StockManagement/appsettings.json file.
 
-1) DbConfig -> DbOptions -> ConnectionStr değeri sahip olduğunuz bir SqlServer bağlantı verisi ile değiştirilmelidir.
-2) DistributedLockConfig -> DistributedLockOptions -> ConnectionStr değeri sahip olduğunuz bir SqlServer bağlantı verisi ile değiştirilmelidir.
-3) MassTransitConfig -> MassTransitOptions altınde yer alan HostName, VirtualHost, Username, Password verileri sahip olduğunuz bir RabbitMq platformuna ait verilerle değiştirilmelidir.
+Changes to be made are:
+1. DbConfig -> DbOptions -> ConnectionStr value should be changed with the Sql Server connection string that you have.
+2. DistributedLockConfig -> DistributedLockOptions -> ConnectionStr value should be changed with the Sql Server connection string that you have.
+3. MassTransitConfig -> MassTransitOptions -> HostName, VirtualHost, Username, Password values should be changed with the RabbitMq platform information that you have.
 
-1. maddede yer alan bağlantı bilgisi yanlış olursa uygulama ayağa kalkamayacaktır. Geri kalan ayarların doğru olup olmadığını kontrol etmek içinse http://localhost/healthchecks_ui endpoint'inden yararlanabilirsiniz.
+In the first item if the connection string information is invalid, application will crash immediately. In order to check if the remaining settings are valid, you can use http://localhost:XXXX/healthchecks_ui endpoint.
 
-<img src="./images/StockManagement_HealthChecks_UI.png" alt="" width="500px"/>
+<img src="./images/StockManagement_HealthChecks_UI.png" alt="" width="800px"/>
