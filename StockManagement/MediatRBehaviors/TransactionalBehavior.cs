@@ -5,19 +5,19 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using StockManagement.Data;
-using StockManagement.Utility.IntegrationEventHandlerSection;
+using StockManagement.Utility.IntegrationEventPublisherSection;
 
 namespace StockManagement.MediatRBehaviors
 {
     public class TransactionalBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly DataContext _dataContext;
-        private readonly IIntegrationEventHandler _integrationEventHandler;
+        private readonly IIntegrationEventPublisher _integrationEventPublisher;
 
-        public TransactionalBehavior(DataContext dataContext, IIntegrationEventHandler integrationEventHandler)
+        public TransactionalBehavior(DataContext dataContext, IIntegrationEventPublisher integrationEventPublisher)
         {
             _dataContext = dataContext;
-            _integrationEventHandler = integrationEventHandler;
+            _integrationEventPublisher = integrationEventPublisher;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -33,7 +33,7 @@ namespace StockManagement.MediatRBehaviors
             if (dbContextTransaction != null)
             {
                 await dbContextTransaction.CommitAsync(cancellationToken);
-                await _integrationEventHandler.Publish(cancellationToken);
+                await _integrationEventPublisher.Publish(cancellationToken);
             }
 
             return response;

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StockManagement.Utility.IntegrationEventHandlerSection
+namespace StockManagement.Utility.IntegrationEventPublisherSection
 {
-    public interface IIntegrationEventHandler
+    public interface IIntegrationEventPublisher
     {
         IReadOnlyList<IIntegrationEvent> IntegrationEvents { get; }
         void AddEvent(IIntegrationEvent integrationEvent);
