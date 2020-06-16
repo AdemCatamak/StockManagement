@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using StockManagement.Data;
-using StockManagement.Utility.IntegrationEventHandlerSection;
+using StockManagement.Utility.IntegrationEventPublisherSection;
 
 namespace StockManagement.MediatRBehaviors
 {

@@ -29,7 +29,7 @@ using StockManagement.HostedServices;
 using StockManagement.MassTransitObservers;
 using StockManagement.MediatRBehaviors;
 using StockManagement.Utility.DistributedLockSection;
-using StockManagement.Utility.IntegrationEventHandlerSection;
+using StockManagement.Utility.IntegrationEventPublisherSection;
 
 namespace StockManagement
 {
@@ -194,7 +194,7 @@ namespace StockManagement
 
             #endregion
 
-            #region IntegrationEventHandler
+            #region IntegrationEventPublisher
 
             services.AddScoped<IIntegrationEventPublisher, IntegrationEventPublisher>();
 

@@ -6,10 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using MassTransit;
 
-namespace StockManagement.Utility.IntegrationEventHandlerSection
+namespace StockManagement.Utility.IntegrationEventPublisherSection
 {
     public class IntegrationEventPublisher : IIntegrationEventPublisher,
-                                           IDisposable
+                                             IDisposable
     {
         private readonly IBusControl _busControl;
         private readonly ConcurrentQueue<IIntegrationEvent> _events;

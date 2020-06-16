@@ -1,5 +1,5 @@
 using System;
-using StockManagement.Utility.IntegrationEventHandlerSection;
+using StockManagement.Utility.IntegrationEventPublisherSection;
 
 namespace StockManagement.Business.StockSnapShotSection.IntegrationEvent
 {

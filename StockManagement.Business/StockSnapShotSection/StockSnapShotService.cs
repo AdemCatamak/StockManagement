@@ -13,7 +13,7 @@ using StockManagement.Business.StockSnapShotSection.Responses;
 using StockManagement.Data;
 using StockManagement.Data.Models;
 using StockManagement.Exceptions;
-using StockManagement.Utility.IntegrationEventHandlerSection;
+using StockManagement.Utility.IntegrationEventPublisherSection;
 
 namespace StockManagement.Business.StockSnapShotSection
 {
