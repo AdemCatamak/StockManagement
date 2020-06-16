@@ -4,8 +4,8 @@ namespace StockManagement.Business.Pagination
 {
     public abstract class BaseQueryCommand
     {
-        public int Offset { get; private set; }
-        public int Take { get; private set; }
+        public int Offset { get; }
+        public int Take { get; }
 
         protected BaseQueryCommand(int offset, int take)
         {

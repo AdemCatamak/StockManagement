@@ -4,8 +4,8 @@ namespace StockManagement.Business.Pagination
 {
     public abstract class BaseQueryResponse<T>
     {
-        public int TotalCount { get; private set; }
-        public IReadOnlyList<T> Data { get; private set; }
+        public int TotalCount { get; }
+        public IReadOnlyList<T> Data { get; }
 
         protected BaseQueryResponse(int totalCount, IReadOnlyList<T> data)
         {

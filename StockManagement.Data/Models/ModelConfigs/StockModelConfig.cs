@@ -23,9 +23,14 @@ namespace StockManagement.Data.Models.ModelConfigs
                    .IsRequired();
             builder.Property(s => s.AvailableStock)
                    .IsRequired();
+            builder.Property(s => s.LastStockOperationDate)
+                   .IsRequired();
 
             builder.HasIndex(s => s.ProductId)
                    .IsUnique();
+            builder.HasIndex(s => s.ProductCode)
+                   .IsUnique();
+            builder.HasIndex(s => s.LastStockOperationDate);
         }
     }
 }

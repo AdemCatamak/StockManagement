@@ -1,6 +1,6 @@
-namespace StockManagement.Api.Contracts.StockActionRequests
+namespace StockManagement.Api.Contracts.StockRequests
 {
-    public class AddToStockHttpRequest
+    public class RemoveFromStockHttpRequest
     {
         public int Count { get; set; }
         public string CorrelationId { get; set; }

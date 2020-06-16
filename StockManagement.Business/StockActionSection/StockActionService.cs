@@ -33,7 +33,7 @@ namespace StockManagement.Business.StockActionSection
             await _dataContext.StockActionModels.AddAsync(stockActionModel, cancellationToken);
             await _dataContext.SaveChangesAsync(cancellationToken);
 
-            var stockInitializedEvent = new StockInitializedEvent(stockActionModel.ProductId, stockActionModel.Id);
+            var stockInitializedEvent = new StockInitializedEvent(stockActionModel.ProductId, stockActionModel.Id, stockActionModel.CreatedOn);
             await _mediator.Publish(stockInitializedEvent, cancellationToken);
         }
 
@@ -57,7 +57,7 @@ namespace StockManagement.Business.StockActionSection
             await _dataContext.StockActionModels.AddAsync(stockActionModel, cancellationToken);
             await _dataContext.SaveChangesAsync(cancellationToken);
 
-            var stockIncreasedEvent = new StockCountIncreasedEvent(stockActionModel.ProductId, stockActionModel.Id, stockActionModel.Count);
+            var stockIncreasedEvent = new StockCountIncreasedEvent(stockActionModel.ProductId, stockActionModel.Id, stockActionModel.Count, stockActionModel.CreatedOn);
             await _mediator.Publish(stockIncreasedEvent, cancellationToken);
 
             StockActionResponse stockActionServiceResponse = stockActionModel.ToStockActionServiceResponse();
@@ -84,7 +84,7 @@ namespace StockManagement.Business.StockActionSection
             await _dataContext.StockActionModels.AddAsync(stockActionModel, cancellationToken);
             await _dataContext.SaveChangesAsync(cancellationToken);
 
-            var stockInitializedEvent = new StockCountDecreasedEvent(stockActionModel.ProductId, stockActionModel.Id, stockActionModel.Count);
+            var stockInitializedEvent = new StockCountDecreasedEvent(stockActionModel.ProductId, stockActionModel.Id, stockActionModel.Count, stockActionModel.CreatedOn);
             await _mediator.Publish(stockInitializedEvent, cancellationToken);
 
             StockActionResponse stockActionServiceResponse = stockActionModel.ToStockActionServiceResponse();
@@ -101,7 +101,7 @@ namespace StockManagement.Business.StockActionSection
             await _dataContext.StockActionModels.AddAsync(stockActionModel, cancellationToken);
             await _dataContext.SaveChangesAsync(cancellationToken);
 
-            var stockCountSetEvent = new StockCountSetEvent(stockActionModel.ProductId, stockActionModel.Id, 0);
+            var stockCountSetEvent = new StockCountSetEvent(stockActionModel.ProductId, stockActionModel.Id, 0, stockActionModel.CreatedOn);
             await _mediator.Publish(stockCountSetEvent, cancellationToken);
 
             StockActionResponse stockActionServiceResponse = stockActionModel.ToStockActionServiceResponse();

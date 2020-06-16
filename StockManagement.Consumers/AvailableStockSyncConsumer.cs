@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using MassTransit;
@@ -55,7 +54,7 @@ namespace StockManagement.Consumers
                                                         StockCollectionResponse stockCollectionResponse = await _mediator.Send(queryStockCommand);
                                                         StockResponse stockResponse = stockCollectionResponse.Data.First();
 
-                                                        var updateAvailableStockCommand = new UpdateAvailableStockCommand(stockResponse.StockId, availableStock, stockActionId);
+                                                        var updateAvailableStockCommand = new UpdateAvailableStockCommand(stockResponse.StockId, availableStock, stockActionId, stockResponse.LastStockOperationDate);
                                                         try
                                                         {
                                                             await _mediator.Send(updateAvailableStockCommand);

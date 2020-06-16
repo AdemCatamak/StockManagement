@@ -9,7 +9,7 @@ namespace StockManagement.Business.StockSection.Mappings
         {
             if (stockModel == null)
                 return null;
-            var stockResponse = new StockResponse(stockModel.Id, stockModel.ProductId, stockModel.ProductCode, stockModel.AvailableStock, stockModel.StockActionId);
+            var stockResponse = new StockResponse(stockModel.Id, stockModel.ProductId, stockModel.ProductCode, stockModel.AvailableStock, stockModel.StockActionId, stockModel.LastStockOperationDate);
             return stockResponse;
         }
     }

@@ -1,3 +1,5 @@
+using System;
+
 namespace StockManagement.Api.Contracts.Responses
 {
     public class StockHttpResponse
@@ -6,5 +8,6 @@ namespace StockManagement.Api.Contracts.Responses
         public long ProductId { get; set; }
         public string ProductCode { get; set; }
         public int AvailableStock { get; set; }
+        public DateTime LastStockOperationDate { get; set; }
     }
 }

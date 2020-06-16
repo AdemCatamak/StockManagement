@@ -1,3 +1,4 @@
+using System;
 using MediatR;
 
 namespace StockManagement.Business.StockActionSection.DomainEvents
@@ -6,11 +7,13 @@ namespace StockManagement.Business.StockActionSection.DomainEvents
     {
         public long ProductId { get; }
         public long StockActionId { get; }
+        public DateTime StockActionDate { get; }
 
-        public StockInitializedEvent(long productId, long stockActionId)
+        public StockInitializedEvent(long productId, long stockActionId, DateTime stockActionDate)
         {
             ProductId = productId;
             StockActionId = stockActionId;
+            StockActionDate = stockActionDate;
         }
     }
 }

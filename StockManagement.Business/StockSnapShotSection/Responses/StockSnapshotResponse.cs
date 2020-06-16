@@ -1,16 +1,21 @@
+using System;
+
 namespace StockManagement.Business.StockSnapShotSection.Responses
 {
     public class StockSnapshotResponse
     {
-        public long StockId { get; private set; }
-        public long ProductId { get; private set; }
-        public int AvailableStock { get; private set; }
+        public long StockId { get; }
+        public long ProductId { get; }
+        public int AvailableStock { get; }
+        public DateTime LastStockActionDate { get; }
 
-        public StockSnapshotResponse(long stockId, long productId, int availableStock)
+
+        public StockSnapshotResponse(long stockId, long productId, int availableStock, DateTime lastStockActionDate)
         {
             StockId = stockId;
             ProductId = productId;
             AvailableStock = availableStock;
+            LastStockActionDate = lastStockActionDate;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace StockManagement.Business.StockSection
             if (request == null)
                 throw new RequestException();
 
-            var stockModel = new StockModel(request.ProductId, request.ProductCode, 0, request.StockActionId);
+            var stockModel = new StockModel(request.ProductId, request.ProductCode, 0, request.StockActionId, request.LastStockOperationDate);
             _dataContext.Add(stockModel);
             await _dataContext.SaveChangesAsync(cancellationToken);
 
@@ -47,7 +47,7 @@ namespace StockManagement.Business.StockSection
                 throw new StockTimeLineException(stockModel.StockActionId, request.StockActionId);
             }
 
-            stockModel.UpdateStock(request.AvailableStock, request.StockActionId);
+            stockModel.UpdateStock(request.AvailableStock, request.StockActionId, request.LastStockOperationDate);
             await _dataContext.SaveChangesAsync(cancellationToken);
 
             var stockResponse = stockModel.ToStockResponse();
@@ -66,6 +66,12 @@ namespace StockManagement.Business.StockSection
 
             if (request.ProductId.HasValue)
                 stockModels = stockModels.Where(s => s.ProductId == request.ProductId);
+
+            if (request.PartialProductCode != null)
+                stockModels = stockModels.Where(s => s.ProductCode.Contains(request.PartialProductCode));
+
+            if (request.StockUpdatedLaterThan.HasValue)
+                stockModels = stockModels.Where(s => s.LastStockOperationDate > request.StockUpdatedLaterThan);
 
             int totalCount = await stockModels.CountAsync(cancellationToken: cancellationToken);
             List<StockModel> stockModelList = await stockModels.Skip(request.Offset)
