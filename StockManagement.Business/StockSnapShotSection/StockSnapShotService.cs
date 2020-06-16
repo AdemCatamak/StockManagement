@@ -20,12 +20,12 @@ namespace StockManagement.Business.StockSnapShotSection
     public class StockSnapShotService : IStockSnapShotService
     {
         private readonly DataContext _dataContext;
-        private readonly IIntegrationEventHandler _integrationEventHandler;
+        private readonly IIntegrationEventPublisher _integrationEventPublisher;
 
-        public StockSnapShotService(DataContext dataContext, IIntegrationEventHandler integrationEventHandler)
+        public StockSnapShotService(DataContext dataContext, IIntegrationEventPublisher integrationEventPublisher)
         {
             _dataContext = dataContext;
-            _integrationEventHandler = integrationEventHandler;
+            _integrationEventPublisher = integrationEventPublisher;
         }
 
         public async Task Handle(StockInitializedEvent notification, CancellationToken cancellationToken)
@@ -35,7 +35,7 @@ namespace StockManagement.Business.StockSnapShotSection
             await _dataContext.SaveChangesAsync(cancellationToken);
 
             var stockSnapShotCreatedIntegrationEvent = new StockSnapShotCreatedIntegrationEvent(stockSnapShotModel.ProductId, stockSnapShotModel.Id, stockSnapShotModel.StockActionId, stockSnapShotModel.LastStockActionDate);
-            _integrationEventHandler.AddEvent(stockSnapShotCreatedIntegrationEvent);
+            _integrationEventPublisher.AddEvent(stockSnapShotCreatedIntegrationEvent);
         }
 
         public async Task Handle(StockCountIncreasedEvent notification, CancellationToken cancellationToken)
@@ -96,7 +96,7 @@ namespace StockManagement.Business.StockSnapShotSection
             await _dataContext.SaveChangesAsync(cancellationToken);
 
             var stockCountIncreasedIntegrationEvent = new StockCountIncreasedIntegrationEvent(stockSnapShotModel.ProductId, stockSnapShotModel.StockActionId, count, stockSnapShotModel.AvailableStock, stockActionDate);
-            _integrationEventHandler.AddEvent(stockCountIncreasedIntegrationEvent);
+            _integrationEventPublisher.AddEvent(stockCountIncreasedIntegrationEvent);
         }
 
         private async Task DecreaseStock(long productId, int count, long stockActionId, DateTime stockActionDate, CancellationToken cancellationToken)
@@ -118,7 +118,7 @@ namespace StockManagement.Business.StockSnapShotSection
             await _dataContext.SaveChangesAsync(cancellationToken);
 
             var stockCountDecreasedIntegrationEvent = new StockCountDecreasedIntegrationEvent(stockSnapShotModel.ProductId, stockSnapShotModel.StockActionId, count, stockSnapShotModel.AvailableStock, stockSnapShotModel.LastStockActionDate);
-            _integrationEventHandler.AddEvent(stockCountDecreasedIntegrationEvent);
+            _integrationEventPublisher.AddEvent(stockCountDecreasedIntegrationEvent);
         }
     }
 }

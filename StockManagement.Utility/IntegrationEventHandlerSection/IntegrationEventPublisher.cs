@@ -8,13 +8,13 @@ using MassTransit;
 
 namespace StockManagement.Utility.IntegrationEventHandlerSection
 {
-    public class IntegrationEventHandler : IIntegrationEventHandler,
+    public class IntegrationEventPublisher : IIntegrationEventPublisher,
                                            IDisposable
     {
         private readonly IBusControl _busControl;
         private readonly ConcurrentQueue<IIntegrationEvent> _events;
 
-        public IntegrationEventHandler(IBusControl busControl)
+        public IntegrationEventPublisher(IBusControl busControl)
         {
             _busControl = busControl ?? throw new ArgumentNullException(nameof(busControl));
             _events = new ConcurrentQueue<IIntegrationEvent>();

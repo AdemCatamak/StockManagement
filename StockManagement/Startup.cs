@@ -196,7 +196,7 @@ namespace StockManagement
 
             #region IntegrationEventHandler
 
-            services.AddScoped<IIntegrationEventHandler, IntegrationEventHandler>();
+            services.AddScoped<IIntegrationEventPublisher, IntegrationEventPublisher>();
 
             #endregion
             

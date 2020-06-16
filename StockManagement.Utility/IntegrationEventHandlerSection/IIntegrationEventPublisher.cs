@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace StockManagement.Utility.IntegrationEventHandlerSection
 {
-    public interface IIntegrationEventHandler
+    public interface IIntegrationEventPublisher
     {
         IReadOnlyList<IIntegrationEvent> IntegrationEvents { get; }
         void AddEvent(IIntegrationEvent integrationEvent);
