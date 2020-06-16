@@ -12,12 +12,13 @@ namespace StockManagement.Data.Models
         public long ProductId { get; private set; }
         public int AvailableStock { get; private set; }
         public long StockActionId { get; private set; }
+        public DateTime LastStockActionDate { get; private set; }
 
-        public StockSnapShotModel(long productId, int availableStock, long stockActionId) : this(default, DateTime.UtcNow, DateTime.UtcNow, productId, availableStock, stockActionId)
+        public StockSnapShotModel(long productId, int availableStock, long stockActionId, DateTime lastStockActionDate) : this(default, DateTime.UtcNow, DateTime.UtcNow, productId, availableStock, stockActionId, lastStockActionDate)
         {
         }
 
-        public StockSnapShotModel(long id, DateTime createdOn, DateTime updatedOn, long productId, int availableStock, long stockActionId)
+        public StockSnapShotModel(long id, DateTime createdOn, DateTime updatedOn, long productId, int availableStock, long stockActionId, DateTime lastStockActionDate)
         {
             Id = id;
             CreatedOn = createdOn;
@@ -25,19 +26,22 @@ namespace StockManagement.Data.Models
             ProductId = productId;
             AvailableStock = availableStock;
             StockActionId = stockActionId;
+            LastStockActionDate = lastStockActionDate;
         }
 
-        public void DecreaseStock(int count, long stockActionId)
+        public void DecreaseStock(int count, long stockActionId, DateTime lastStockActionDate)
         {
             AvailableStock -= count;
             StockActionId = stockActionId;
+            LastStockActionDate = lastStockActionDate;
             UpdatedOn = DateTime.UtcNow;
         }
 
-        public void IncreaseStock(int count, long stockActionId)
+        public void IncreaseStock(int count, long stockActionId, DateTime lastStockActionDate)
         {
             AvailableStock += count;
             StockActionId = stockActionId;
+            LastStockActionDate = lastStockActionDate;
             UpdatedOn = DateTime.UtcNow;
         }
     }
