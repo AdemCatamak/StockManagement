@@ -21,6 +21,8 @@ namespace StockManagement.Data.Models.ModelConfigs
                    .IsRequired();
             builder.Property(s => s.StockActionId)
                    .IsRequired();
+            builder.Property(s => s.LastStockActionDate)
+                   .IsRequired();
 
             builder.HasIndex(s => s.ProductId);
         }

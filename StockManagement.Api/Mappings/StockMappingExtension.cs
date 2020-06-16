@@ -15,6 +15,7 @@ namespace StockManagement.Api.Mappings
                              ProductId = stockResponse.ProductId,
                              ProductCode = stockResponse.ProductCode,
                              AvailableStock = stockResponse.AvailableStock,
+                             LastStockOperationDate = stockResponse.LastStockOperationDate
                          };
         }
     }

@@ -4,8 +4,8 @@ namespace StockManagement.Business.ProductSection.DomainEvents
 {
     public class ProductCreatedEvent : INotification
     {
-        public long ProductId { get; private set; }
-        public string ProductCode { get; private set; }
+        public long ProductId { get; }
+        public string ProductCode { get; }
 
         public ProductCreatedEvent(long productId, string productCode)
         {

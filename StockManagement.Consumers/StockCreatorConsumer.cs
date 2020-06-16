@@ -29,7 +29,7 @@ namespace StockManagement.Consumers
             ProductCollectionResponse productCollectionResponse = await _mediator.Send(queryProductCommand);
             ProductResponse productResponse = productCollectionResponse.Data.First();
 
-            var createStockCommand = new CreateStockCommand(productResponse.ProductId, productResponse.ProductCode, stockSnapShotCreatedIntegrationEvent.StockActionId);
+            var createStockCommand = new CreateStockCommand(productResponse.ProductId, productResponse.ProductCode, stockSnapShotCreatedIntegrationEvent.StockActionId, stockSnapShotCreatedIntegrationEvent.StockCreatedOn);
             await _mediator.Send(createStockCommand);
         }
     }

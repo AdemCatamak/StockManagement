@@ -10,7 +10,7 @@ namespace StockManagement.Business.StockSnapShotSection.Mappings
             StockSnapshotResponse stockSnapshotResponse = null;
             if (stockSnapShotModel != null)
             {
-                stockSnapshotResponse = new StockSnapshotResponse(stockSnapShotModel.Id, stockSnapShotModel.ProductId, stockSnapShotModel.AvailableStock);
+                stockSnapshotResponse = new StockSnapshotResponse(stockSnapShotModel.Id, stockSnapShotModel.ProductId, stockSnapShotModel.AvailableStock, stockSnapShotModel.LastStockActionDate);
             }
 
             return stockSnapshotResponse;

@@ -1,4 +1,3 @@
-using System;
 using StockManagement.Exceptions;
 
 namespace StockManagement.Business.StockSection.Exceptions

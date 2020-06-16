@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using StockManagement.Api.Contracts.Responses;
-using StockManagement.Api.Contracts.StockActionRequests;
+using StockManagement.Api.Contracts.StockRequests;
 using StockManagement.Api.Mappings;
 using StockManagement.Business.ProductSection.Requests;
 using StockManagement.Business.StockActionSection.Requests;
@@ -28,21 +28,28 @@ namespace StockManagement.Api.Controllers
 
         private string StockOperationLockKey(long productId) => $"stock-operation-for-product-{productId}";
 
-        [ProducesResponseType(typeof(StockHttpResponse), (int) HttpStatusCode.OK)]
-        [HttpGet("products/{productId}/stocks")]
-        public async Task<IActionResult> GetStock([FromRoute] long productId)
+        [ProducesResponseType(typeof(StockCollectionHttpResponse), (int) HttpStatusCode.OK)]
+        [HttpGet("stocks")]
+        public async Task<IActionResult> GetStock([FromQuery] GetStockCollectionHttpRequest getStockCollectionHttpRequest)
         {
-            var queryStockCommand = new QueryStockCommand(0, 1)
+            var queryStockCommand = new QueryStockCommand(getStockCollectionHttpRequest?.Offset ?? 0,
+                                                          getStockCollectionHttpRequest?.Take ?? 1)
                                     {
-                                        ProductId = productId
+                                        StockId = getStockCollectionHttpRequest?.StockId,
+                                        ProductId = getStockCollectionHttpRequest?.ProductId,
+                                        PartialProductCode = getStockCollectionHttpRequest?.ProductCode,
+                                        StockUpdatedLaterThan = getStockCollectionHttpRequest?.StockUpdatedLaterThan
                                     };
             StockCollectionResponse stockCollectionResponse = await _mediator.Send(queryStockCommand);
 
-            var stockHttpResponse = stockCollectionResponse.Data
-                                                           .First()
-                                                           .ToStockHttpResponse();
-
-            return StatusCode((int) HttpStatusCode.OK, stockHttpResponse);
+            var stockCollectionHttpResponse = new StockCollectionHttpResponse
+                                              {
+                                                  TotalCount = stockCollectionResponse.TotalCount,
+                                                  Data = stockCollectionResponse.Data
+                                                                                .Select(s => s.ToStockHttpResponse())
+                                                                                .ToList()
+                                              };
+            return StatusCode((int) HttpStatusCode.OK, stockCollectionHttpResponse);
         }
 
         [ProducesResponseType(typeof(StockActionHttpResponse), (int) HttpStatusCode.OK)]

@@ -13,12 +13,13 @@ namespace StockManagement.Data.Models
         public string ProductCode { get; private set; }
         public int AvailableStock { get; private set; }
         public long StockActionId { get; private set; }
+        public DateTime LastStockOperationDate { get; private set; }
 
-        public StockModel(long productId, string productCode, int availableStock, long stockActionId) : this(default, DateTime.UtcNow, DateTime.UtcNow, productId, productCode, availableStock, stockActionId)
+        public StockModel(long productId, string productCode, int availableStock, long stockActionId, DateTime lastStockOperationDate) : this(default, DateTime.UtcNow, DateTime.UtcNow, productId, productCode, availableStock, stockActionId, lastStockOperationDate)
         {
         }
 
-        public StockModel(long id, DateTime createdOn, DateTime updatedOn, long productId, string productCode, int availableStock, long stockActionId)
+        public StockModel(long id, DateTime createdOn, DateTime updatedOn, long productId, string productCode, int availableStock, long stockActionId, DateTime lastStockOperationDate)
         {
             Id = id;
             CreatedOn = createdOn;
@@ -27,12 +28,14 @@ namespace StockManagement.Data.Models
             ProductCode = productCode;
             AvailableStock = availableStock;
             StockActionId = stockActionId;
+            LastStockOperationDate = lastStockOperationDate;
         }
 
-        public void UpdateStock(int availableStock, long stockActionId)
+        public void UpdateStock(int availableStock, long stockActionId, DateTime lastStockOperationDate)
         {
             AvailableStock = availableStock;
             StockActionId = stockActionId;
+            LastStockOperationDate = lastStockOperationDate;
             UpdatedOn = DateTime.UtcNow;
         }
     }

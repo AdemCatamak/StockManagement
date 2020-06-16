@@ -1,4 +1,4 @@
-namespace StockManagement.Api.Contracts.StockActionRequests
+namespace StockManagement.Api.Contracts.StockRequests
 {
     public class ResetStockHttpRequest
     {

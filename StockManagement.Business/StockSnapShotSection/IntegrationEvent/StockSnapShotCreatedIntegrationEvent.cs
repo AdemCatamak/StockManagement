@@ -1,3 +1,4 @@
+using System;
 using StockManagement.Utility.IntegrationEventHandlerSection;
 
 namespace StockManagement.Business.StockSnapShotSection.IntegrationEvent
@@ -7,12 +8,14 @@ namespace StockManagement.Business.StockSnapShotSection.IntegrationEvent
         public long ProductId { get; }
         public long StockSnapShotId { get; }
         public long StockActionId { get; }
+        public DateTime StockCreatedOn { get; }
 
-        public StockSnapShotCreatedIntegrationEvent(long productId, long stockSnapShotId, long stockActionId)
+        public StockSnapShotCreatedIntegrationEvent(long productId, long stockSnapShotId, long stockActionId, DateTime stockCreatedOn)
         {
             ProductId = productId;
             StockSnapShotId = stockSnapShotId;
             StockActionId = stockActionId;
+            StockCreatedOn = stockCreatedOn;
         }
     }
 }

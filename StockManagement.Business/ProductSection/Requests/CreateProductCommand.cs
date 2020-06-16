@@ -6,7 +6,7 @@ namespace StockManagement.Business.ProductSection.Requests
 {
     public class CreateProductCommand : IRequest<ProductResponse>
     {
-        public string ProductCode { get; private set; }
+        public string ProductCode { get; }
 
         public CreateProductCommand(string productCode)
         {
