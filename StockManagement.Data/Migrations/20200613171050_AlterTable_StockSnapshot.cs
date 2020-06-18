@@ -2,19 +2,19 @@
 
 namespace StockManagement.Data.Migrations
 {
-    public partial class AlterTable_StockSnapShot : Migration
+    public partial class AlterTable_StockSnapshot : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<long>(
                                              name: "StockActionId",
-                                             table: "StockSnapShot",
+                                             table: "StockSnapshot",
                                              nullable: false,
                                              defaultValue: 0L);
 
             migrationBuilder.CreateIndex(
-                                         name: "IX_StockSnapShot_StockActionId",
-                                         table: "StockSnapShot",
+                                         name: "IX_StockSnapshot_StockActionId",
+                                         table: "StockSnapshot",
                                          column: "StockActionId",
                                          unique: true);
         }
@@ -22,12 +22,12 @@ namespace StockManagement.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                                       name: "IX_StockSnapShot_StockActionId",
-                                       table: "StockSnapShot");
+                                       name: "IX_StockSnapshot_StockActionId",
+                                       table: "StockSnapshot");
 
             migrationBuilder.DropColumn(
                                         name: "StockActionId",
-                                        table: "StockSnapShot");
+                                        table: "StockSnapshot");
         }
     }
 }

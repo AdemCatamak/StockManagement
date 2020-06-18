@@ -1,16 +1,16 @@
 using MediatR;
 using StockManagement.Business.StockActionSection.DomainEvents;
-using StockManagement.Business.StockSnapShotSection.Requests;
-using StockManagement.Business.StockSnapShotSection.Responses;
+using StockManagement.Business.StockSnapshotSection.Requests;
+using StockManagement.Business.StockSnapshotSection.Responses;
 
-namespace StockManagement.Business.StockSnapShotSection
+namespace StockManagement.Business.StockSnapshotSection
 {
-    public interface IStockSnapShotService : IBusinessService,
+    public interface IStockSnapshotService : IBusinessService,
                                              INotificationHandler<StockInitializedEvent>,
                                              INotificationHandler<StockCountIncreasedEvent>,
                                              INotificationHandler<StockCountDecreasedEvent>,
                                              INotificationHandler<StockCountSetEvent>,
-                                             IRequestHandler<QueryStockSnapShotCommand, StockSnapShotCollectionResponse>
+                                             IRequestHandler<QueryStockSnapshotCommand, StockSnapshotCollectionResponse>
     {
     }
 }

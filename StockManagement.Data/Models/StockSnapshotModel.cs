@@ -3,7 +3,7 @@ using StockManagement.Data.Models.BaseModels;
 
 namespace StockManagement.Data.Models
 {
-    public class StockSnapShotModel : IEntity<long>, ICreateAudit, IUpdateAudit
+    public class StockSnapshotModel : IEntity<long>, ICreateAudit, IUpdateAudit
     {
         public long Id { get; private set; }
         public DateTime CreatedOn { get; private set; }
@@ -14,11 +14,11 @@ namespace StockManagement.Data.Models
         public long StockActionId { get; private set; }
         public DateTime LastStockActionDate { get; private set; }
 
-        public StockSnapShotModel(long productId, int availableStock, long stockActionId, DateTime lastStockActionDate) : this(default, DateTime.UtcNow, DateTime.UtcNow, productId, availableStock, stockActionId, lastStockActionDate)
+        public StockSnapshotModel(long productId, int availableStock, long stockActionId, DateTime lastStockActionDate) : this(default, DateTime.UtcNow, DateTime.UtcNow, productId, availableStock, stockActionId, lastStockActionDate)
         {
         }
 
-        public StockSnapShotModel(long id, DateTime createdOn, DateTime updatedOn, long productId, int availableStock, long stockActionId, DateTime lastStockActionDate)
+        public StockSnapshotModel(long id, DateTime createdOn, DateTime updatedOn, long productId, int availableStock, long stockActionId, DateTime lastStockActionDate)
         {
             Id = id;
             CreatedOn = createdOn;

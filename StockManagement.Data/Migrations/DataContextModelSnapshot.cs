@@ -113,7 +113,7 @@ namespace StockManagement.Data.Migrations
                     b.ToTable("Stock");
                 });
 
-            modelBuilder.Entity("StockManagement.Data.Models.StockSnapShotModel", b =>
+            modelBuilder.Entity("StockManagement.Data.Models.StockSnapshotModel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,7 +142,7 @@ namespace StockManagement.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("StockSnapShot");
+                    b.ToTable("StockSnapshot");
                 });
 #pragma warning restore 612, 618
         }

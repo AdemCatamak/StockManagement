@@ -1,6 +1,6 @@
 using System;
 
-namespace StockManagement.Business.StockSnapShotSection.Responses
+namespace StockManagement.Business.StockSnapshotSection.Responses
 {
     public class StockSnapshotResponse
     {

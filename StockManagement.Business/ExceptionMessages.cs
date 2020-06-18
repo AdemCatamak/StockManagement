@@ -17,8 +17,8 @@ namespace StockManagement.Business
         public const string ADDTOSTOCK_COUNT_NOTPOSITIVE = "At least 1 item should be added to stock";
         public const string ADDTOSTOCK__ALREADYEXECUTED = "Add to stock operation is already executed with {0} correlation";
 
-        public const string STOCKSNAPSHOT__NOTFOUND = "Stock snap shot could not found";
-        public const string STOCKSNAPSHOT__NOTFOUND_X = "Stock snap shot could not found for {0}";
+        public const string STOCKSNAPSHOT__NOTFOUND = "Stock snapshot could not found";
+        public const string STOCKSNAPSHOT__NOTFOUND_X = "Stock snapshot could not found for {0}";
         public const string STOCK_INSUFFICENT = "{2} of {1} {0} products were requested";
         
         public const string STOCK__NOTFOUND = "Stock could not found";

@@ -1,6 +1,6 @@
 using StockManagement.Exceptions;
 
-namespace StockManagement.Business.StockSnapShotSection.Exceptions
+namespace StockManagement.Business.StockSnapshotSection.Exceptions
 {
     public class InsufficientStockException : ValidationException
     {

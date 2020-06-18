@@ -10,8 +10,8 @@ using StockManagement.Data;
 namespace StockManagement.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200616091532_AlterTables_Stock_StockSnapShot__LastStockOperationDate")]
-    partial class AlterTables_Stock_StockSnapShot__LastStockOperationDate
+    [Migration("20200616091532_AlterTables_Stock_StockSnapshot__LastStockOperationDate")]
+    partial class AlterTables_Stock_StockSnapshot__LastStockOperationDate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,7 +117,7 @@ namespace StockManagement.Data.Migrations
                     b.ToTable("Stock");
                 });
 
-            modelBuilder.Entity("StockManagement.Data.Models.StockSnapShotModel", b =>
+            modelBuilder.Entity("StockManagement.Data.Models.StockSnapshotModel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,7 +146,7 @@ namespace StockManagement.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("StockSnapShot");
+                    b.ToTable("StockSnapshot");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using StockManagement.Business.StockSection.Exceptions;
 using StockManagement.Business.StockSection.Requests;
 using StockManagement.Business.StockSection.Responses;
-using StockManagement.Business.StockSnapShotSection.IntegrationEvent;
+using StockManagement.Business.StockSnapshotSection.IntegrationEvent;
 using StockManagement.Utility.DistributedLockSection;
 
 namespace StockManagement.Consumers
