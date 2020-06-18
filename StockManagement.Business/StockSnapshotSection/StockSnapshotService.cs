@@ -34,7 +34,7 @@ namespace StockManagement.Business.StockSnapshotSection
             await _dataContext.StockSnapshotModels.AddAsync(stockSnapshotModel, cancellationToken);
             await _dataContext.SaveChangesAsync(cancellationToken);
 
-            var stockSnapshotCreatedIntegrationEvent = new StockSnapshotCreatedIntegrationEvent(stockSnapshotModel.ProductId, stockSnapshotModel.Id, stockSnapshotModel.StockActionId, stockSnapshotModel.LastStockActionDate);
+            var stockSnapshotCreatedIntegrationEvent = new StockInitializedIntegrationEvent(stockSnapshotModel.ProductId, stockSnapshotModel.StockActionId, stockSnapshotModel.LastStockActionDate);
             _integrationEventPublisher.AddEvent(stockSnapshotCreatedIntegrationEvent);
         }
 

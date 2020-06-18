@@ -9,7 +9,7 @@ using StockManagement.Business.StockSnapshotSection.IntegrationEvent;
 
 namespace StockManagement.Consumers
 {
-    public class StockCreatorConsumer : IConsumer<StockSnapshotCreatedIntegrationEvent>
+    public class StockCreatorConsumer : IConsumer<StockInitializedIntegrationEvent>
     {
         private readonly IMediator _mediator;
 
@@ -18,18 +18,18 @@ namespace StockManagement.Consumers
             _mediator = mediator;
         }
 
-        public async Task Consume(ConsumeContext<StockSnapshotCreatedIntegrationEvent> context)
+        public async Task Consume(ConsumeContext<StockInitializedIntegrationEvent> context)
         {
-            StockSnapshotCreatedIntegrationEvent stockSnapshotCreatedIntegrationEvent = context.Message;
+            StockInitializedIntegrationEvent stockInitializedIntegrationEvent = context.Message;
 
             var queryProductCommand = new QueryProductCommand(0, 1)
                                       {
-                                          ProductId = stockSnapshotCreatedIntegrationEvent.ProductId
+                                          ProductId = stockInitializedIntegrationEvent.ProductId
                                       };
             ProductCollectionResponse productCollectionResponse = await _mediator.Send(queryProductCommand);
             ProductResponse productResponse = productCollectionResponse.Data.First();
 
-            var createStockCommand = new CreateStockCommand(productResponse.ProductId, productResponse.ProductCode, stockSnapshotCreatedIntegrationEvent.StockActionId, stockSnapshotCreatedIntegrationEvent.StockCreatedOn);
+            var createStockCommand = new CreateStockCommand(productResponse.ProductId, productResponse.ProductCode, stockInitializedIntegrationEvent.StockActionId, stockInitializedIntegrationEvent.StockCreatedOn);
             await _mediator.Send(createStockCommand);
         }
     }
