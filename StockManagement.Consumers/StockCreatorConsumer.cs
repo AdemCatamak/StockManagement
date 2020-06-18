@@ -5,11 +5,11 @@ using MediatR;
 using StockManagement.Business.ProductSection.Requests;
 using StockManagement.Business.ProductSection.Responses;
 using StockManagement.Business.StockSection.Requests;
-using StockManagement.Business.StockSnapShotSection.IntegrationEvent;
+using StockManagement.Business.StockSnapshotSection.IntegrationEvent;
 
 namespace StockManagement.Consumers
 {
-    public class StockCreatorConsumer : IConsumer<StockSnapShotCreatedIntegrationEvent>
+    public class StockCreatorConsumer : IConsumer<StockSnapshotCreatedIntegrationEvent>
     {
         private readonly IMediator _mediator;
 
@@ -18,18 +18,18 @@ namespace StockManagement.Consumers
             _mediator = mediator;
         }
 
-        public async Task Consume(ConsumeContext<StockSnapShotCreatedIntegrationEvent> context)
+        public async Task Consume(ConsumeContext<StockSnapshotCreatedIntegrationEvent> context)
         {
-            StockSnapShotCreatedIntegrationEvent stockSnapShotCreatedIntegrationEvent = context.Message;
+            StockSnapshotCreatedIntegrationEvent stockSnapshotCreatedIntegrationEvent = context.Message;
 
             var queryProductCommand = new QueryProductCommand(0, 1)
                                       {
-                                          ProductId = stockSnapShotCreatedIntegrationEvent.ProductId
+                                          ProductId = stockSnapshotCreatedIntegrationEvent.ProductId
                                       };
             ProductCollectionResponse productCollectionResponse = await _mediator.Send(queryProductCommand);
             ProductResponse productResponse = productCollectionResponse.Data.First();
 
-            var createStockCommand = new CreateStockCommand(productResponse.ProductId, productResponse.ProductCode, stockSnapShotCreatedIntegrationEvent.StockActionId, stockSnapShotCreatedIntegrationEvent.StockCreatedOn);
+            var createStockCommand = new CreateStockCommand(productResponse.ProductId, productResponse.ProductCode, stockSnapshotCreatedIntegrationEvent.StockActionId, stockSnapshotCreatedIntegrationEvent.StockCreatedOn);
             await _mediator.Send(createStockCommand);
         }
     }

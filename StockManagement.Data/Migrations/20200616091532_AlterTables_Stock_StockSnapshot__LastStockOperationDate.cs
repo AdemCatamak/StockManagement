@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StockManagement.Data.Migrations
 {
-    public partial class AlterTables_Stock_StockSnapShot__LastStockOperationDate : Migration
+    public partial class AlterTables_Stock_StockSnapshot__LastStockOperationDate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
                 name: "LastStockActionDate",
-                table: "StockSnapShot",
+                table: "StockSnapshot",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
@@ -50,7 +50,7 @@ namespace StockManagement.Data.Migrations
 
             migrationBuilder.DropColumn(
                 name: "LastStockActionDate",
-                table: "StockSnapShot");
+                table: "StockSnapshot");
 
             migrationBuilder.DropColumn(
                 name: "LastStockOperationDate",

@@ -1,17 +1,18 @@
 using System;
 using StockManagement.Utility.IntegrationEventPublisherSection;
 
-namespace StockManagement.Business.StockSnapShotSection.IntegrationEvent
+namespace StockManagement.Business.StockSnapshotSection.IntegrationEvent
 {
-    public class StockCountDecreasedIntegrationEvent : IIntegrationEvent
+    public class StockCountIncreasedIntegrationEvent : IIntegrationEvent
     {
         public long ProductId { get; }
         public long StockActionId { get; }
         public int Count { get; }
-        public int AvailableStock { get;  }
+        public int AvailableStock { get; }
         public DateTime StockUpdatedOn { get; }
 
-        public StockCountDecreasedIntegrationEvent(long productId, long stockActionId, int count, int availableStock, DateTime stockUpdatedOn)
+
+        public StockCountIncreasedIntegrationEvent(long productId, long stockActionId, int count, int availableStock, DateTime stockUpdatedOn)
         {
             ProductId = productId;
             StockActionId = stockActionId;

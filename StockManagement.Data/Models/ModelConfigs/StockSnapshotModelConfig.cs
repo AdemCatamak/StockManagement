@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace StockManagement.Data.Models.ModelConfigs
 {
-    public class StockSnapShotModelConfig : IEntityTypeConfiguration<StockSnapShotModel>
+    public class StockSnapshotModelConfig : IEntityTypeConfiguration<StockSnapshotModel>
     {
-        public void Configure(EntityTypeBuilder<StockSnapShotModel> builder)
+        public void Configure(EntityTypeBuilder<StockSnapshotModel> builder)
         {
-            builder.ToTable("StockSnapShot");
+            builder.ToTable("StockSnapshot");
 
             builder.HasKey(s => s.Id);
 

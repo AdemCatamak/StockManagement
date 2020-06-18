@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StockManagement.Data.Migrations
 {
-    public partial class CreateTable_StockSnapShot : Migration
+    public partial class CreateTable_StockSnapshot : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                                         name: "StockSnapShot",
+                                         name: "StockSnapshot",
                                          columns: table => new
                                                            {
                                                                Id = table.Column<long>(nullable: false)
@@ -18,18 +18,18 @@ namespace StockManagement.Data.Migrations
                                                                ProductId = table.Column<long>(nullable: false),
                                                                AvailableStock = table.Column<int>(nullable: false),
                                                            },
-                                         constraints: table => { table.PrimaryKey("PK_StockSnapShot", x => x.Id); });
+                                         constraints: table => { table.PrimaryKey("PK_StockSnapshot", x => x.Id); });
 
             migrationBuilder.CreateIndex(
-                                         name: "IX_StockSnapShot_ProductId",
-                                         table: "StockSnapShot",
+                                         name: "IX_StockSnapshot_ProductId",
+                                         table: "StockSnapshot",
                                          column: "ProductId",
                                          unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(name: "StockSnapShot");
+            migrationBuilder.DropTable(name: "StockSnapshot");
         }
     }
 }

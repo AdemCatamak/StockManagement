@@ -17,7 +17,7 @@ namespace StockManagement.Data
 
         public virtual DbSet<ProductModel> ProductModels { get; set; }
         public virtual DbSet<StockActionModel> StockActionModels { get; set; }
-        public virtual DbSet<StockSnapShotModel> StockSnapShotModels { get; set; }
+        public virtual DbSet<StockSnapshotModel> StockSnapshotModels { get; set; }
         public virtual DbSet<StockModel> StockModels { get; set; }
     }
 }

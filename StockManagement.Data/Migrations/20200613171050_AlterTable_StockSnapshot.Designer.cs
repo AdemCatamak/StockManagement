@@ -10,8 +10,8 @@ using StockManagement.Data;
 namespace StockManagement.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200613023223_CreateTable_StockSnapShot")]
-    partial class CreateTable_StockSnapShot
+    [Migration("20200613171050_AlterTable_StockSnapshot")]
+    partial class AlterTable_StockSnapshot
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,15 +67,15 @@ namespace StockManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CorrelationId")
-                        .IsUnique();
-
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("CorrelationId", "StockActionType")
+                        .IsUnique();
 
                     b.ToTable("StockAction");
                 });
 
-            modelBuilder.Entity("StockManagement.Data.Models.StockSnapShotModel", b =>
+            modelBuilder.Entity("StockManagement.Data.Models.StockSnapshotModel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,6 +91,9 @@ namespace StockManagement.Data.Migrations
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("StockActionId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
@@ -99,7 +102,10 @@ namespace StockManagement.Data.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("StockSnapShot");
+                    b.HasIndex("StockActionId")
+                        .IsUnique();
+
+                    b.ToTable("StockSnapshot");
                 });
             
 #pragma warning restore 612, 618
