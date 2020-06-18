@@ -9,7 +9,6 @@ namespace StockManagement.Business.StockSnapshotSection
                                              INotificationHandler<StockInitializedEvent>,
                                              INotificationHandler<StockCountIncreasedEvent>,
                                              INotificationHandler<StockCountDecreasedEvent>,
-                                             INotificationHandler<StockCountSetEvent>,
                                              IRequestHandler<QueryStockSnapshotCommand, StockSnapshotCollectionResponse>
     {
     }

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -8,6 +9,8 @@ using StockManagement.Business.StockActionSection.Exceptions;
 using StockManagement.Business.StockActionSection.Mappings;
 using StockManagement.Business.StockActionSection.Requests;
 using StockManagement.Business.StockActionSection.Responses;
+using StockManagement.Business.StockSnapshotSection.Requests;
+using StockManagement.Business.StockSnapshotSection.Responses;
 using StockManagement.Data;
 using StockManagement.Data.Enum;
 using StockManagement.Data.Models;
@@ -96,12 +99,19 @@ namespace StockManagement.Business.StockActionSection
             if (request == null)
                 throw new RequestNullException();
 
-            var stockActionModel = new StockActionModel(request.ProductId, StockActionTypes.ResetStock, 0, request.CorrelationId);
+            var queryStockSnapshotCommand = new QueryStockSnapshotCommand(0, 1)
+                                            {
+                                                ProductId = request.ProductId
+                                            };
+            StockSnapshotCollectionResponse stockSnapshotCollectionResponse = await _mediator.Send(queryStockSnapshotCommand, cancellationToken);
+            StockSnapshotResponse stockSnapshotResponse = stockSnapshotCollectionResponse.Data.First();
+            
+            var stockActionModel = new StockActionModel(request.ProductId, StockActionTypes.ResetStock, stockSnapshotResponse.AvailableStock, request.CorrelationId);
 
             await _dataContext.StockActionModels.AddAsync(stockActionModel, cancellationToken);
             await _dataContext.SaveChangesAsync(cancellationToken);
 
-            var stockCountSetEvent = new StockCountSetEvent(stockActionModel.ProductId, stockActionModel.Id, 0, stockActionModel.CreatedOn);
+            var stockCountSetEvent = new StockCountDecreasedEvent(stockActionModel.ProductId, stockActionModel.Id, stockActionModel.Count, stockActionModel.CreatedOn);
             await _mediator.Publish(stockCountSetEvent, cancellationToken);
 
             StockActionResponse stockActionServiceResponse = stockActionModel.ToStockActionServiceResponse();

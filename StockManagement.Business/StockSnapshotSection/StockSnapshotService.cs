@@ -48,14 +48,6 @@ namespace StockManagement.Business.StockSnapshotSection
             await DecreaseStock(notification.ProductId, notification.Count, notification.StockActionId, notification.StockActionDate, cancellationToken);
         }
 
-        public async Task Handle(StockCountSetEvent notification, CancellationToken cancellationToken)
-        {
-            StockSnapshotModel stockSnapshotModel = await _dataContext.StockSnapshotModels.FirstAsync(s => s.ProductId == notification.ProductId, cancellationToken: cancellationToken);
-            stockSnapshotModel.DecreaseStock(stockSnapshotModel.AvailableStock, notification.StockActionId, notification.StockActionDate);
-
-            await _dataContext.SaveChangesAsync(cancellationToken);
-        }
-
         public async Task<StockSnapshotCollectionResponse> Handle(QueryStockSnapshotCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
