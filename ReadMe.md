@@ -50,6 +50,6 @@ Changes to be made are:
 2. DistributedLockConfig -> DistributedLockOptions -> ConnectionStr value should be changed with the Sql Server connection string that you have.
 3. MassTransitConfig -> MassTransitOptions -> HostName, VirtualHost, Username, Password values should be changed with the RabbitMq platform information that you have.
 
-In the first item if the connection string information is invalid, application will crash immediately. In order to check if the remaining settings are valid, you can use http://localhost:5000/healthchecks_ui endpoint.
+In the first item if the connection string information is invalid, application will crash immediately. In order to check if the remaining settings are valid, you can use http://localhost:5000/healthchecks-ui endpoint.
 
 <img src="./images/StockManagement_HealthChecks_UI.png" alt="" width="800px"/>
